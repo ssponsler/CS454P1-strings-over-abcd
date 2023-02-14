@@ -36,9 +36,6 @@ public class P1 {
                     break;
             }
             //need to add positional offset
-            //simple solution: run a separate for loop to calculate what
-            //                 power of 4 to add for each index.
-            //efficient solution: implement in this loop
             encodedInt += (Math.pow(4, i));
         }
         return encodedInt;
