@@ -55,9 +55,9 @@ string delta(const string state, const char input) {
 	if (a && b && c && d)
 		return newState.substr(1, 5); // return string that doesn't include first symbol
 
-	// if state is small
+	// if state is small 
 	else if (newState.length() < 6)
-		return newState;	
+		return newState;   // accept with current newState
 
 	// reject everything else
 	else
