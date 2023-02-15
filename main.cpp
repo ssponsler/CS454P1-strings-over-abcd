@@ -9,17 +9,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 #include <cassert>
 using namespace std;
 
 string delta(const string state, const char input);
 string decode(const int stateNum);
 
+
 int main() {
 	cout << "-------------TESTING DELTA FUNCTION-------------" << endl;
-	cout << "Testing state: \"abacb\"  with in: 'c': " << delta("abacb", 'c') << endl;		// valid state with rejecting input
-	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;		// valid state with accepting input
-	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;		// already in reject state
+	cout << "Testing state: \"abacb\"  with in: 'c': " << delta("abacb", 'c') << endl;			// valid state with rejecting input
+	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;			// valid state with accepting input
+	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;			// already in reject state
 	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;			// state with < 5 symbols
 	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;				// empty state
 	
@@ -29,10 +31,23 @@ int main() {
 	cout << "Testing state num: 6,      should result in: \"ab\"    : " << decode(6) << endl;		// small leading a's
 	cout << "Testing state num: 89,      should result in: \"aaba\" : " << decode(89) << endl;		// medium leading a's
 	cout << "Testing state num: 0,      should result in: \"\"      : " << decode(0) << endl;		// empty state
-	cout << "Testing state num: 1365,   should result in: \"reject\": " << decode(1365) << endl;	// reject state
-	cout << "Testing state num: 1364,   should result in: \"ddddd\" : " << decode(1364) << endl;	// last state
+	cout << "Testing state num: 1365,   should result in: \"reject\": " << decode(1365) << endl;		// reject state
+	cout << "Testing state num: 1364,   should result in: \"ddddd\" : " << decode(1364) << endl;		// last state
 	return 0;
 }
+
+//********************************************************************************
+// Function: delta
+// In: current state, next input
+// Return: a resulting state
+// DESC: 
+// 
+// The rule of the DFA is that any substring of length 6 in string w, must have 
+// have one of each symbol {a, b, c, d}. 
+// 
+// Given the current state and next input, the function determines which
+// state will result; such as {a, aa, ab, ... , ddddc, ddddd, reject}
+//********************************************************************************
 
 string delta(const string state, const char input) {
 
@@ -74,6 +89,15 @@ string delta(const string state, const char input) {
 		return "reject";
 }
 
+//********************************************************************************
+// Function: decode
+// In: number corresponding to state
+// Return: a state
+// DESC: using base 4, with {0, 1, 2, 3} which corresponds to {a, b, c, d}
+// one to one maps a number to a specific state of the DFA
+//	Note: Accounts for leading a's by subtracting number of states leading 
+//  	up to the specific length
+//********************************************************************************
 string decode(const int stateNum) {
 	int temp = stateNum;		
 	int L;						// length
