@@ -29,7 +29,7 @@ int main() {
 	cout << "Testing state num: 641,    should result in: \"bacda\" : " << decode(641) << endl;		// normal test
 	cout << "Testing state num: 341,    should result in: \"aaaaa\" : " << decode(341) << endl;		// all a's
 	cout << "Testing state num: 6,      should result in: \"ab\"    : " << decode(6) << endl;		// small leading a's
-	cout << "Testing state num: 89,      should result in: \"aaba\" : " << decode(89) << endl;		// medium leading a's
+	cout << "Testing state num: 89,     should result in: \"aaba\"  : " << decode(89) << endl;		// medium leading a's
 	cout << "Testing state num: 0,      should result in: \"\"      : " << decode(0) << endl;		// empty state
 	cout << "Testing state num: 1365,   should result in: \"reject\": " << decode(1365) << endl;		// reject state
 	cout << "Testing state num: 1364,   should result in: \"ddddd\" : " << decode(1364) << endl;		// last state
