@@ -18,7 +18,7 @@ string delta(const string state, const char input);
 int main() {
 
 	cout << "Testing state: \"abacb\"  with in: 'c': " << delta("abacb", 'c') << endl;		// valid state with rejecting input
-	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;		// valid states with accepting input
+	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;		// valid state with accepting input
 	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;		// already in reject state
 	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;		// state with < 5 symbols
 	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;			// empty state
