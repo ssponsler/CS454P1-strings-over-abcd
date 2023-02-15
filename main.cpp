@@ -13,15 +13,24 @@
 using namespace std;
 
 string delta(const string state, const char input);
-
+string decode(const int stateNum);
 
 int main() {
-
+	cout << "-------------TESTING DELTA FUNCTION-------------" << endl;
 	cout << "Testing state: \"abacb\"  with in: 'c': " << delta("abacb", 'c') << endl;		// valid state with rejecting input
 	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;		// valid state with accepting input
 	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;		// already in reject state
-	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;		// state with < 5 symbols
-	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;			// empty state
+	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;			// state with < 5 symbols
+	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;				// empty state
+	
+	cout << "-------------TESTING DECODE FUNCTION-------------" << endl;
+	cout << "Testing state num: 641,    should result in: \"bacda\" : " << decode(641) << endl;		// normal test
+	cout << "Testing state num: 341,    should result in: \"aaaaa\" : " << decode(341) << endl;		// all a's
+	cout << "Testing state num: 6,      should result in: \"ab\"    : " << decode(6) << endl;		// small leading a's
+	cout << "Testing state num: 89,      should result in: \"aaba\" : " << decode(89) << endl;		// medium leading a's
+	cout << "Testing state num: 0,      should result in: \"\"      : " << decode(0) << endl;		// empty state
+	cout << "Testing state num: 1365,   should result in: \"reject\": " << decode(1365) << endl;	// reject state
+	cout << "Testing state num: 1364,   should result in: \"ddddd\" : " << decode(1364) << endl;	// last state
 	return 0;
 }
 
@@ -63,4 +72,58 @@ string delta(const string state, const char input) {
 	// reject everything else
 	else
 		return "reject";
+}
+
+string decode(const int stateNum) {
+	int temp = stateNum;		
+	int L;						// length
+	vector <int> remainders;	// store numerical remainders
+	string resState = "";		// store string corresponding to remainders
+
+	// find length
+	if (stateNum == 1365)	// reject state
+		return "reject";
+	else if (stateNum == 0)	// empty state
+		return "";
+	else if (stateNum >= 1 && stateNum <= 4)
+		L = 1;
+	else if (stateNum >= 5 && stateNum <= 20)
+		L = 2;
+	else if (stateNum >= 21 && stateNum <= 84)
+		L = 3;
+	else if (stateNum >= 85 && stateNum <= 340)
+		L = 4;
+	else if (stateNum >= 341 && stateNum <= 1364)
+		L = 5;
+	else {
+		cerr << "\nERROR: stateNum is too large. Terminating...\n";
+		exit(1);
+	}
+
+
+	// subtract to account for leading a's
+	for (int i = 0; i < L; i++) {
+		temp -= pow(4, i);
+	}
+
+	// push remainders onto vector
+	for (int i = 0; i < L; i++) {
+		remainders.push_back(temp % 4);
+		temp /= 4;
+	}
+
+	// convert vecotr of remainders to symbols but in reverse order
+	for (int i = remainders.size() - 1; i >= 0; i--) {
+		if (remainders[i] == 0)
+			resState += 'a';
+		else if (remainders[i] == 1)
+			resState += 'b';
+		else if (remainders[i] == 2)
+			resState += 'c';
+		else
+			resState += 'd';
+	}
+
+	return resState;
+
 }
