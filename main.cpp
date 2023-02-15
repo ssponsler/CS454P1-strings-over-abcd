@@ -1,20 +1,65 @@
 /*
+ * Project 1: DFA counting
+ * main.cpp
+ * Sean Sponsler Evan Walters
+ * Feburary 17th, 2023
+ * Description:
+ */
 
-* = not sure
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cassert>
+using namespace std;
 
-1. Sigma: vector of all postibe symbols
-2. Queue: Vector of all states
-3. Delta: 2-D Vector of all resulting states, EX: D[current state, given input] = resulting state
-4. *Final: boolean vector (length k, k = num of states) 1 for accepting state, 0 for reject
+string delta(const string state, const char input);
 
-For Counting
-1. *Prev: 
-2. *Next: 
 
-*Functions:
-build: using sigma and language rules, generate queue, delta, and final
-*Encode: given string in langauge M, using base-4 conversion return a decimal number
-*Decode: given a decimal number, using base 4 conversion return a corresponding string
-*count: recurively count number of all possible valid string of given length N
+int main() {
 
-*/
+	cout << "Testing state: \"abacb\"  with in: 'c': " << delta("abacb", 'c') << endl;		// valid state with rejecting input
+	cout << "Testing state: \"abacb\"  with in: 'd': " << delta("abacb", 'd') << endl;		// valid states with accepting input
+	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;		// already in reject state
+	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;		// state with < 5 symbols
+	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;			// empty state
+	return 0;
+}
+
+string delta(const string state, const char input) {
+
+	// cant get states with > 5 symbols, unless it's the rejecting state
+	assert(state.length() <= 5 || state == "reject");
+
+	// reject if already in rejecting state
+	if (state == "reject") return "reject";
+
+
+	string newState = state + input;	// concatenate input symbol to current state
+	bool a = 0, b = 0, c = 0, d = 0;	// initialize a bool for each letter
+
+
+	// check 6 length string and get bool for each letter
+	for (int i = 0; i < newState.length(); i++) {
+		if (newState[i] == 'a') a = 1;
+		else if (newState[i] == 'b') b = 1;
+		else if (newState[i] == 'c') c = 1;
+		else if (newState[i] == 'd') d = 1;
+		else {
+			cerr << "\nERROR: State houses incorrent symbol. Terminating...\n";
+			exit(1);
+		}
+	}
+
+
+	// if all symbols exist in concatenated string
+	if (a && b && c && d)
+		return newState.substr(1, 5); // return string that doesn't include first symbol
+
+	// if state is small
+	else if (newState.length() < 6)
+		return newState;	
+
+	// reject everything else
+	else
+		return "reject";
+}
