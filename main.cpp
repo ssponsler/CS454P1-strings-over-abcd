@@ -1,7 +1,7 @@
 /*
  * Project 1: DFA counting
  * main.cpp
- * Sean Sponsler Evan Walters
+ * Sean Sponsler, Evan Walters
  * Feburary 17th, 2023
  * Description:
  */
