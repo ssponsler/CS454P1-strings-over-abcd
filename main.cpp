@@ -29,6 +29,7 @@ string delta(const string state, const char input) {
 
 	// cant get states with > 5 symbols, unless it's the rejecting state
 	assert(state.length() <= 5 || state == "reject");
+	assert(input == 'a' || input == 'b' || input == 'c' || input == 'd');
 
 	// reject if already in rejecting state
 	if (state == "reject") return "reject";
