@@ -1,8 +1,39 @@
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class P1 {
     public static void main(String[] args) {
-        System.out.println(encode("bac"));
+        System.out.println(encode("ddddd"));
+        //List<List<Integer>> delta = new ArrayList<List<Integer>>();
+        System.out.println("Testing string 'abacb': " + delta("abacb", 'c'));
+        System.out.println("Testing string 'abacb': " + delta("abacb", 'd'));
+        System.out.println("Testing DECODE for 89: " + decode(89));
+    }
+
+    public static String delta(String state, char input) {
+        if (state == "reject") { return "reject"; }
+
+        String newState = state + input;
+        boolean a = false, b = false, c = false, d = false;
+
+        for (int i = 0; i < newState.length(); i++) {
+            if (newState.charAt(i) == 'a') { a = true;}
+            else if (newState.charAt(i) == 'b') { b = true;}
+            else if (newState.charAt(i) == 'c') { c = true;}
+            else if (newState.charAt(i) == 'd') { d = true;}
+            else {
+                System.err.println("ERROR: State houses incorrect symbol.");
+                return null;
+            }
+        }
+        if (newState.length() < 6) {
+            return newState;
+        }
+        else if (a && b && c && d) {
+            return newState.substring(1,6);
+        }
+
+        else { return "reject"; }
     }
     /*
      * Using {0,1,2,3} as our conversion base,
@@ -43,9 +74,45 @@ public class P1 {
     /*
      * 
      */
-    public static String decode(int n) {
-        String decodedString = "";
-        
-        return decodedString;
+    public static String decode(int stateNum) {
+        int temp = stateNum;
+        int L = 0; //length
+        ArrayList<Integer> remainders = new ArrayList<Integer>(); //store numerical remainders
+        String resState = "";
+        if (stateNum == 1365) {	// reject state
+		    return "reject";
+        }
+        else if (stateNum == 0)	// empty state
+            return "";
+        else if (stateNum >= 1 && stateNum <= 4)
+            L = 1;
+        else if (stateNum >= 5 && stateNum <= 20)
+            L = 2;
+        else if (stateNum >= 21 && stateNum <= 84)
+            L = 3;
+        else if (stateNum >= 85 && stateNum <= 340)
+            L = 4;
+        else if (stateNum >= 341 && stateNum <= 1364)
+            L = 5;
+        else {
+            System.err.println("\nERROR: stateNum is too large. Terminating...\n");
+            System.exit(1);
+        }
+        for (int i = 0; i < L; i++) {
+            temp -= Math.pow(4, i);
+        }
+
+        for (int i = 0; i < L; i++) {
+            remainders.add(temp % 4);
+            temp /= 4;
+        }
+
+        for (int i = remainders.size() - 1; i >= 0; i--) {
+            if (remainders.get(i) == 0) { resState += 'a';}
+            else if (remainders.get(i) == 1) { resState += 'b';}
+            else if (remainders.get(i) == 2) { resState += 'c';}
+            else if (remainders.get(i) == 3) { resState += 'd';}
+        }    
+        return resState;
     }
 }
