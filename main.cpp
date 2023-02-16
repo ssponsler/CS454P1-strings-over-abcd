@@ -249,7 +249,7 @@ long long int count(const int N) {
 			}
 		}
 
-		// copy current into next and reset next
+		// copy next into current and reset next
 		for (int k = 0; k < SIZE; k++) {
 			current[k] = next[k];
 			next[k] = 0;
