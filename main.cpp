@@ -63,7 +63,10 @@ string delta(const string state, const char input) {
 	string newState = state + input;	// concatenate input symbol to current state
 	bool a = 0, b = 0, c = 0, d = 0;	// initialize a bool for each letter
 
-
+	// if state is small 
+	if (newState.length() < 6)
+		return newState;   // accept with current newState
+	
 	// check 6 length string and get bool for each letter
 	for (int i = 0; i < newState.length(); i++) {
 		if (newState[i] == 'a') a = 1;
@@ -76,12 +79,10 @@ string delta(const string state, const char input) {
 		}
 	}
 
-	// if state is small 
-	if (newState.length() < 6)
-		return newState;   // accept with current newState
+	
 	
 	// if all symbols exist in concatenated string
-	else if (a && b && c && d)
+	if (a && b && c && d)
 		return newState.substr(1, 5); // return string that doesn't include first symbol
 
 	// reject everything else
