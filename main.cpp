@@ -24,6 +24,7 @@ int main() {
 	cout << "Testing state: \"reject\" with in: 'a': " << delta("reject", 'c') << endl;			// already in reject state
 	cout << "Testing state: \"aba\"    with in: 'c': " << delta("aba", 'c') << endl;			// state with < 5 symbols
 	cout << "Testing state: \"\"       with in: 'a': " << delta("", 'a') << endl;				// empty state
+	cout << "Testing state: \"abc\"    with in: 'd': " << delta("abc", 'd') << endl;			// small string with every symbol
 	
 	cout << "-------------TESTING DECODE FUNCTION-------------" << endl;
 	cout << "Testing state num: 641,    should result in: \"bacda\" : " << decode(641) << endl;		// normal test
