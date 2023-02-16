@@ -75,14 +75,13 @@ string delta(const string state, const char input) {
 		}
 	}
 
-
-	// if all symbols exist in concatenated string
-	if (a && b && c && d)
-		return newState.substr(1, 5); // return string that doesn't include first symbol
-
 	// if state is small 
-	else if (newState.length() < 6)
+	if (newState.length() < 6)
 		return newState;   // accept with current newState
+	
+	// if all symbols exist in concatenated string
+	else if (a && b && c && d)
+		return newState.substr(1, 5); // return string that doesn't include first symbol
 
 	// reject everything else
 	else
