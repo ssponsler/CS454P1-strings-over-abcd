@@ -4,5 +4,14 @@ what we need:
 
 ^Encode: given string in langauge M, using base-4 conversion return a decimal number
 ^Decode: given a decimal number, using base 4 conversion return a corresponding string
-Count: counting number of possible string of length N
 ^Delta function: given current state and next input, return resulting state
+Count: counting number of possible string of length N
+
+current = array of size 1365 (1-1364 accept => initialized to 1) (1365 reject)
+next = array of size 1365 (initialized to all 0)
+
+next[i] = 0
+for (i 0->1366)
+  for (j 0->3)
+    next[i] += current[delta[i][j]]
+copy next into current and continue
