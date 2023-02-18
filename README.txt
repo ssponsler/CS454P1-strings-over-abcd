@@ -1,5 +1,5 @@
 Sean Sponsler, Evan Walters
-CS 454
+CS 454 Spring 2023
 Dr. Ravikumar
 
                             P1 Contribution Report
@@ -15,5 +15,5 @@ Sean: Functions in JAVA {main, encode}.
 Evan: Functions in CPP {delta, decode, count}
       Tested {delta, decode}
 
-Togethor we talked a lot about the strategy we would use for all the functions, 
+Together we talked a lot about the strategy we would use for all the functions, 
 doing them on paper togethor before coding aswell. 
