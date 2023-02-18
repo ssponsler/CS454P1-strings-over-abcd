@@ -2,6 +2,8 @@ Sean Sponsler, Evan Walters
 CS 454 Spring 2023
 Dr. Ravikumar
 
+Run P1.jar by using the command "java -jar P1.jar" in the project folder.
+
                             P1 Contribution Report
 
 We decided to do the project in JAVA for the unlimited precision arithmetic, 
